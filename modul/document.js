@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const createDocuments = (req, res) => {
   // buat variabel penampung data dan query sql
   const data = { ...req.body };
-  const querySql = "INSERT INTO documents SET ?; SELECT LAST_INSERT_ID() as id;";
+  const querySql = "INSERT INTO documents SET ; SELECT LAST_INSERT_ID() as id;";
 
   // jalankan query
   koneksi.query(querySql, data, (err, rows, field) => {
