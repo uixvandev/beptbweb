@@ -13,7 +13,7 @@ const koneksi = mysql.createConnection({
   // user: "root",
   // password: "pw_db",
   // database: "db_tb",
-  // multipleStatements: true,
+  multipleStatements: true,
 });
 
 // koneksi database
