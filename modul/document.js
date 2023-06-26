@@ -12,23 +12,54 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // membuat event user
 const createDocuments = (req, res) => {
-  // buat variabel penampung data dan query sql
+  // Menyimpan data dari request body ke variabel data
   const data = { ...req.body };
-  const querySql = "INSERT INTO documents SET ; SELECT LAST_INSERT_ID() as id;";
+  // Query SQL untuk insert data
+  const insertSql = 'INSERT INTO documents SET ?';
+  // Query SQL untuk mendapatkan last inserted ID
+  const selectSql = 'SELECT LAST_INSERT_ID() as id';
 
-  // jalankan query
-  koneksi.query(querySql, data, (err, rows, field) => {
-    // error handling
+  // Menjalankan query untuk melakukan INSERT
+  koneksi.query(insertSql, data, (err, result) => {
+    // Error handling
     if (err) {
-      return res.status(500).json({ success: false, message: "Gagal Membuat Form!", error: err });
+      return res.status(500).json({ success: false, message: 'Gagal Membuat Form!', error: err });
     }
-    const id = rows[1][0].id;
-    // jika request berhasil
-    res
-      .status(201)
-      .json({ success: true, message: "Berhasil Membuat Form!", data: { ...req.body, id } });
+
+    // Menjalankan query untuk mendapatkan last inserted ID
+    koneksi.query(selectSql, (err, results) => {
+      // Error handling
+      if (err) {
+        return res.status(500).json({ success: false, message: 'Gagal Membuat Form!', error: err });
+      }
+
+      // Mendapatkan ID yang baru saja di-generate
+      const id = results[0].id;
+
+      // Jika request berhasil
+      res.status(201).json({ success: true, message: 'Berhasil Membuat Form!', data: { ...req.body, id } });
+    });
   });
-};
+}
+
+// const createDocuments = (req, res) => {
+//   // buat variabel penampung data dan query sql
+//   const data = { ...req.body };
+//   const querySql = "INSERT INTO documents SET ; SELECT LAST_INSERT_ID() as id;";
+
+//   // jalankan query
+//   koneksi.query(querySql, data, (err, rows, field) => {
+//     // error handling
+//     if (err) {
+//       return res.status(500).json({ success: false, message: "Gagal Membuat Form!", error: err });
+//     }
+//     const id = rows[1][0].id;
+//     // jika request berhasil
+//     res
+//       .status(201)
+//       .json({ success: true, message: "Berhasil Membuat Form!", data: { ...req.body, id } });
+//   });
+// };
 
 // read data
 const readDocuments = (req, res) => {
