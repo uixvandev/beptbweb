@@ -62,8 +62,8 @@ const actionRespon = (req, res) => {
                 res.status(200).json({ success: true, message: 'Berhasil update respon!', });
             });
         } else {
-           // createRespon(req, res)
-             return res.status(500).json({ success: false, message: 'Ada kesalahan', error: err });
+           createRespon(req, res)
+             //return res.status(500).json({ success: false, message: 'Ada kesalahan', error: err });
         }
     });
 }
