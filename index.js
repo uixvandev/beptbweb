@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const url = require("url");
 const cors = require("cors");
+const multer = require("multer");
 
 const { register, login, profil, resetPassword, userSelf } = require("./modul/user");
 const {
