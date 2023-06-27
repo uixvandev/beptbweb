@@ -7,12 +7,12 @@ const multer = require("multer");
 
 const { register, login, profil, resetPassword, userSelf } = require("./modul/user");
 const {
-  createDocuments,
-  updateDocument,
-  readDocumentId,
-  readDocuments,
-  deleteDocumentId,
-  readChekRespon,
+    createDocuments,
+    updateDocument,
+    readDocumentId,
+    readDocuments,
+    deleteDocumentId,
+    readChekRespon,
 } = require("./modul/document");
 const { readResponId, assignedSignature, actionRespon } = require("./modul/signature");
 
@@ -23,12 +23,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/static", express.static(path.join(__dirname, "document")));
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, 'document');
-  },
-  filename: function(req, file, cb) {
-    cb(null, file.originalname);
-  }
+    destination: function (req, file, cb) {
+        cb(null, 'document');
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
 });
 
 const upload = multer({ storage: storage });
