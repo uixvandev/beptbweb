@@ -3,16 +3,26 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const url = require("url");
 const cors = require("cors");
+
 const multer = require("multer");
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "/document");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+var upload = multer({ storage: storage });
 
 const { register, login, profil, resetPassword, userSelf } = require("./modul/user");
 const {
-    createDocuments,
-    updateDocument,
-    readDocumentId,
-    readDocuments,
-    deleteDocumentId,
-    readChekRespon,
+  createDocuments,
+  updateDocument,
+  readDocumentId,
+  readDocuments,
+  deleteDocumentId,
+  readChekRespon,
 } = require("./modul/document");
 const { readResponId, assignedSignature, actionRespon } = require("./modul/signature");
 
@@ -22,16 +32,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/static", express.static(path.join(__dirname, "document")));
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'document');
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
-});
-
-const upload = multer({ storage: storage });
 //user
 app.post("/api/register", register);
 app.post("/api/login", login);
