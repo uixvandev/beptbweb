@@ -4,15 +4,7 @@ const path = require("path");
 const url = require("url");
 const cors = require("cors");
 const multer = require("multer");
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: "./public/uploads",
-    filename: (req, file, cb) => {
-      const fileName = `file.originalname`;
-      cb(null, fileName);
-    },
-  }),
-});
+const upload = multer({ dest: './public/uploads' });
 
 const { register, login, profil, resetPassword, userSelf } = require("./modul/user");
 const {
