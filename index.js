@@ -22,17 +22,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/static", express.static(path.join(__dirname, "document")));
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    // Perbaikan
-    cb(null, "document");
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, 'document');
   },
-  filename: function (req, file, cb) {
+  filename: function(req, file, cb) {
     cb(null, file.originalname);
-  },
+  }
 });
 
-var upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 //user
 app.post("/api/register", register);
 app.post("/api/login", login);
