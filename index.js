@@ -4,7 +4,15 @@ const path = require("path");
 const url = require("url");
 const cors = require("cors");
 const multer = require("multer");
-const upload = multer({ dest: './uploads' });
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: "./public/uploads",
+    filename: (req, file, cb) => {
+      const fileName = `file.originalname`;
+      cb(null, fileName);
+    },
+  }),
+});
 
 const { register, login, profil, resetPassword, userSelf } = require("./modul/user");
 const {
@@ -21,7 +29,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(express.static("public"));
 app.use("/static", express.static(path.join(__dirname, "uploads")));
 //user
 app.post("/api/register", register);
