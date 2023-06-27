@@ -9,7 +9,7 @@ const os = require("os");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(os.tmpdir(), "/document"));
+    cb(null, "/document");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
