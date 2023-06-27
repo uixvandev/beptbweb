@@ -35,37 +35,38 @@ const createRespon = (req, res) => {
 
 // update data
 const actionRespon = (req, res) => {
+    console.log(req)
     // buat variabel penampung data dan query sql
-    const data = { ...req.body };
-    const querySearch = 'SELECT * FROM signature WHERE user_id = ? AND document_id= ?';
-    const queryUpdate = 'UPDATE signature SET ? WHERE id = ?';
+    // const data = { ...req.body };
+    // const querySearch = 'SELECT * FROM signature WHERE user_id = ? AND document_id= ?';
+    // const queryUpdate = 'UPDATE signature SET ? WHERE id = ?';
 
-    // jalankan query untuk melakukan pencarian data
-    koneksi.query(querySearch, [req.body.user_id, req.body.document_id], (err, rows, field) => {
-        // error handling
-        if (err) {
-            return res.status(500).json({ message: 'Ada kesalahan', error: err });
-        }
+    // // jalankan query untuk melakukan pencarian data
+    // koneksi.query(querySearch, [req.body.user_id, req.body.document_id], (err, rows, field) => {
+    //     // error handling
+    //     if (err) {
+    //         return res.status(500).json({ message: 'Ada kesalahan', error: err });
+    //     }
       
 
-        // jika id yang dimasukkan sesuai dengan data yang ada di db
-        if (rows.length) {
+    //     // jika id yang dimasukkan sesuai dengan data yang ada di db
+    //     if (rows.length) {
 
-            // jalankan query update
-            koneksi.query(queryUpdate, [{ user_id: data.user_id, document_id: data.document_id, file_name: req.file.originalname, status:0 }, rows[0].id], (err, rows, field) => {
-                // error handling
-                if (err) {
-                    return res.status(500).json({ success: false, message: 'Ada kesalahan', error: err });
-                }
+    //         // jalankan query update
+    //         koneksi.query(queryUpdate, [{ user_id: data.user_id, document_id: data.document_id, file_name: req.file.originalname, status:0 }, rows[0].id], (err, rows, field) => {
+    //             // error handling
+    //             if (err) {
+    //                 return res.status(500).json({ success: false, message: 'Ada kesalahan', error: err });
+    //             }
 
-                // jika update berhasil
-                res.status(200).json({ success: true, message: 'Berhasil update respon!', });
-            });
-        } else {
-           createRespon(req, res)
-             //return res.status(500).json({ success: false, message: 'Ada kesalahan', error: err });
-        }
-    });
+    //             // jika update berhasil
+    //             res.status(200).json({ success: true, message: 'Berhasil update respon!', });
+    //         });
+    //     } else {
+    //        createRespon(req, res)
+    //          //return res.status(500).json({ success: false, message: 'Ada kesalahan', error: err });
+    //     }
+    // });
 }
 
 const assignedSignature = (req, res) => {
