@@ -8,7 +8,7 @@ const multer = require("multer");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "document");
+    cb(null, express.static(path.join(__dirname, "document")));
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -16,7 +16,6 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage });
-
 const { register, login, profil, resetPassword, userSelf } = require("./modul/user");
 const {
   createDocuments,
